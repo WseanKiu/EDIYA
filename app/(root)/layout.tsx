@@ -1,12 +1,13 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export default function Layout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div>
-      <h1 className="text-xl">root LAYOUT</h1>
+    <main>
+      <Navbar />
       {children}
-    </div>
+    </main>
   );
-};
-
-export default Layout;
+}

@@ -3,24 +3,15 @@ import { EyeIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { Author, Startup } from "@/sanity/types";
 
-type StartupCardType = {
-  _createdAt: Date;
-  views: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  author: any;
-  _id: number;
-  description: string;
-  image: string;
-  title: string;
-  category: string;
-};
+export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
 const StartupCard = ({ post }: { post: StartupCardType }) => {
   const {
     _createdAt,
     views,
-    author: { _id: authorId, name, image: authorImage },
+    author,
     _id,
     description,
     image,
@@ -40,16 +31,16 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
-          <Link href={`/user/${authorId}`}>
-            <p className="text-16-medium line-clamp-1">{name}</p>
+          <Link href={`/user/${author?._id}`}>
+            <p className="text-16-medium line-clamp-1">{author?.name}</p>
           </Link>
           <Link href={`/startup/${_id}`}>
             <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <Link href={`/user/${authorId}`}>
+        <Link href={`/user/${author?._id}`}>
           <Image
-            src={authorImage}
+            src={author?.image || ""}
             alt="Author"
             width={48}
             height={48}
@@ -65,7 +56,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
       </Link>
 
       <div className="flex-between gap-3 mt-5">
-        <Link href={`/?query=${category.toLowerCase()}`}>
+        <Link href={`/?query=${category?.toLowerCase()}`}>
           <p className="text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
@@ -77,4 +68,3 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 };
 
 export default StartupCard;
-export type { StartupCardType };

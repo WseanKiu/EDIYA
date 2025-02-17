@@ -1,4 +1,4 @@
-import { auth, signIn, signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,16 +35,9 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <form
-              action={async () => {
-                "use server";
-                await signIn("github");
-              }}
-            >
-              <button type="submit">
-                <span>Login</span>
-              </button>
-            </form>
+            <Link href={"/login"}>
+              <span>Login</span>
+            </Link>
           )}
         </div>
       </nav>

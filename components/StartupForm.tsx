@@ -20,7 +20,6 @@ const StartupForm = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
-    console.log("handleFormSubmit");
     try {
       const formValues = {
         title: formData.get("title") as string,
@@ -31,8 +30,6 @@ const StartupForm = () => {
       };
 
       await formSchema.parseAsync(formValues);
-
-      console.log("formValues: ", formValues);
 
       const result = await createIdea(prevState, formData, pitch);
 
@@ -48,7 +45,6 @@ const StartupForm = () => {
       // return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        console.log("Error: ", error);
         const fieldErrors = error.flatten().fieldErrors;
         setErrors(fieldErrors as unknown as Record<string, string>);
 

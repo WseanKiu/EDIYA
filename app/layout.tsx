@@ -55,8 +55,8 @@ const workSans = localFont({
   variable: "--font-work-sans",
 });
 export const metadata: Metadata = {
-  title: "Next Startup",
-  description: "Pitch, Vote and Grow",
+  title: "Ediya",
+  description: "Pitch Your Startup, Connect With Entrepreneurs.",
 };
 
 export default function RootLayout({

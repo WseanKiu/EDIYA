@@ -42,19 +42,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async jwt({ token, account, profile }) {
       if (account && profile) {
-        const id = account.provider === "github" ? profile.id : profile.sub;
+        const id =
+          account.provider === "github" ? profile?.id.toString() : profile.sub;
+
         const user = await client
           .withConfig({ useCdn: false })
           .fetch(AUTHOR_BY_GITHUB_ID_QUERY, { id });
-
         token.id = user?._id;
       }
       return token;
     },
+
     async session({ session, token }) {
       Object.assign(session, { id: token.id });
       return session;
     },
+
     async redirect({ url, baseUrl }) {
       // Prevent redirecting to /login after successful authentication
       if (url.endsWith("/login")) {

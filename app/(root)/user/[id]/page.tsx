@@ -16,9 +16,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!user) return notFound();
 
-  console.log("user: ", user);
-  console.log("session: ", session);
-
   return (
     <>
       <section className="profile_container">
@@ -41,10 +38,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
           <p className="text-30-bold">
-            {user?._id === id ? "Your" : `${user.name}'s`} Pitches
+            {session.id === id ? "Your" : `${user.name}'s`} Pitches
           </p>
           <ul className="card_grid-sm">
-            {/* TODO: ADD USER_STARTUPS_QUERY */}
             <Suspense fallback={<StartupCardSkeleton />}>
               <UserStartups id={id} />
             </Suspense>

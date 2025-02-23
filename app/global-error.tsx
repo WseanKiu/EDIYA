@@ -1,6 +1,7 @@
 "use client"; // Error boundaries must be Client Components
 
 export default function GlobalError({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   error,
   reset,
 }: {
